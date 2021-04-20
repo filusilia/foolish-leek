@@ -1,0 +1,11 @@
+#超时时间
+fund:
+  timeout: 300000
+#小熊同学
+doctorxiong:
+  #获取基金详情
+  detail: https://api.doctorxiong.club/v1/fund/detail
+#天天基金网
+fundgz:
+  #基金实时信息
+  real_time: http://fundgz.1234567.com.cn/js/

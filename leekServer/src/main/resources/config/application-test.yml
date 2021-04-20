@@ -1,0 +1,10 @@
+spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: resources/**,static/**,views/**
+  datasource:
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql
