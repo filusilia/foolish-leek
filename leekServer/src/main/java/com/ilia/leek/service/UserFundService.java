@@ -51,7 +51,7 @@ public class UserFundService extends ServiceImpl<UserFundMapper, UserFund> {
      * @return
      */
     public ResultResponse<Object> getMyFunds(QueryFund queryFund) {
-        Long userId = (Long) StpUtil.getLoginId();
+        Long userId = StpUtil.getLoginIdAsLong();
         queryFund.setUserId(userId);
         PageHelper.startPage(queryFund.getPage(), queryFund.getPageSize());
         List<ResultUserFund> fundList = getBaseMapper().getFundsByUserId(queryFund);

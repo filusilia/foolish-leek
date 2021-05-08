@@ -80,6 +80,11 @@ public enum ResultCode {
     OAUTH_ERROR("2004", "客户端验证失败，用户名或密码错误！"),
 
     /**
+     * 用户未登录
+     */
+    USER_NO_LOGIN("2005", "未登录！"),
+
+    /**
      * 查询,操作结果为空
      */
     SEARCH_NULL("3001", "操作结果为空！"),

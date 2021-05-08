@@ -63,6 +63,17 @@ public class UserController {
     }
 
     /**
+     * 刷新token
+     *
+     * @return Object
+     */
+    @RequestMapping("updateLogin")
+    public ResultResponse<Object> updateLogin() {
+        StpUtil.updateLastActivityToNow();
+        return ResultResponse.success();
+    }
+
+    /**
      * 验证登录
      *
      * @param request

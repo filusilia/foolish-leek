@@ -1,15 +1,17 @@
 package com.ilia.leek.common.exception;
 
+import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.SaTokenException;
 import com.ilia.leek.common.enums.ResultCode;
 import com.ilia.leek.common.result.ResultResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +21,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.ilia.leek.common.result.ResultResponse.*;
+import static com.ilia.leek.common.result.ResultResponse.failed;
+import static com.ilia.leek.common.result.ResultResponse.init;
 
 /**
  * @author Alice on 2021/4/16
@@ -69,6 +72,15 @@ public class GlobalExceptionHandler {
     public ResultResponse<Object> baseBusinessExceptionHandler(BaseBusinessException exception) {
         log.error(exception.getMessage());
         return init(exception.getCode(), exception.getMessage());
+    }
+
+    @ExceptionHandler(value = {SaTokenException.class})
+    public ResultResponse<Object> saTokenExceptionHandler(SaTokenException exception) {
+        log.error(exception.getMessage());
+        if (exception instanceof NotLoginException) {
+            return failed(ResultCode.USER_NO_LOGIN);
+        }
+        return failed(ResultCode.SERVER_ERROR);
     }
 
     @ExceptionHandler(value = Exception.class)
