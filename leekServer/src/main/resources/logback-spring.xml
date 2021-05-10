@@ -73,6 +73,7 @@
     <logger name="java.sql.PreparedStatement" level="DEBUG"/>
     <logger name="java.sql.PreparedStatement" level="DEBUG"/>
     <logger name="com.zaxxer.hikari.pool.HikariPool" level="INFO"/>
+    <logger name="com.zaxxer.hikari.pool.PoolBase" level="INFO"/>
 
     <!--logback.LogbackDemo：类的全路径 -->
     <logger name="errAppender" level="error" additivity="false">

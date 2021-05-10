@@ -1,5 +1,7 @@
 package com.ilia.leek.entity.model;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -8,6 +10,7 @@ import java.time.LocalDateTime;
  * @version 1.0
  * @since 1.0
  */
+@Data
 public class ResultUserFund {
     /**
      * 主键
