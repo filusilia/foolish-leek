@@ -6,6 +6,7 @@ import cn.hutool.json.JSONUtil;
 import com.ilia.leek.common.enums.ResultCode;
 import com.ilia.leek.common.exception.BaseBusinessException;
 import com.ilia.leek.util.fund.xiong.DoctorXiongResponse;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +16,7 @@ import java.time.format.DateTimeFormatter;
  * @version 1.0
  * @since 1.0
  */
+@Slf4j
 public class HttpFundUtil {
 
     public static final String DOCTORXIONG_SUCCESS = "200";
@@ -26,6 +28,7 @@ public class HttpFundUtil {
      * @return {@link DoctorXiongResponse}
      */
     public static DoctorXiongResponse getDetail(String code) {
+        log.info("http get from DoctorXiong,fund code:{}", code);
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String result = HttpUtil.get(FundConstant.DOCTORXIONG_DETAIL + "?code=" + code + "&startDate=" + date);
         if (!ObjectUtil.isEmpty(result)) {
@@ -41,7 +44,7 @@ public class HttpFundUtil {
      * @return String
      */
     public static String getRealTime(String code) {
-        String result = HttpUtil.get(FundConstant.FUNDGZ_REAL_TIME + "/" + code + ".js?rt="+System.currentTimeMillis());
+        String result = HttpUtil.get(FundConstant.FUNDGZ_REAL_TIME + "/" + code + ".js?rt=" + System.currentTimeMillis());
         if (!ObjectUtil.isEmpty(result)) {
             return result;
         }

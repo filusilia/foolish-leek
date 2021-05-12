@@ -32,7 +32,7 @@ public class FundController {
      * 添加我的基金
      *
      * @param queryFund
-     * @return
+     * @return ResultResponse
      */
     @RequestMapping("addMyFund")
     public ResultResponse<Object> addMyFund(@RequestBody QueryFund queryFund) {
@@ -46,7 +46,7 @@ public class FundController {
      * 查询基金实时信息
      *
      * @param queryFund
-     * @return
+     * @return ResultResponse
      */
     @RequestMapping("realTimeFund")
     public ResultResponse<Object> realTimeFund(@RequestBody QueryFund queryFund) {
@@ -60,7 +60,7 @@ public class FundController {
      * 分页查询我的基金
      *
      * @param queryFund
-     * @return
+     * @return ResultResponse
      */
     @RequestMapping("listFund")
     public ResultResponse<Object> listFund(@RequestBody QueryFund queryFund) {
@@ -72,7 +72,7 @@ public class FundController {
 
     /**
      * @param queryFund
-     * @return
+     * @return ResultResponse
      */
     @RequestMapping("realTimeFundByCode")
     public ResultResponse<Object> realTimeFundByCode(@RequestBody QueryFund queryFund) {

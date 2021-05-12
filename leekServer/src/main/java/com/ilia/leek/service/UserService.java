@@ -10,6 +10,7 @@ import com.ilia.leek.common.enums.ResultCode;
 import com.ilia.leek.common.result.ResultResponse;
 import com.ilia.leek.entity.User;
 import com.ilia.leek.mapper.UserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
  * @version 1.0
  * @since 1.0
  */
+@Slf4j
 @Service
 public class UserService extends ServiceImpl<UserMapper, User> {
     public ResultResponse<Object> doLogin(String loginKey, String password) {
