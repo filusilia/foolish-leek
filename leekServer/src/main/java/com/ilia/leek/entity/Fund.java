@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * @author Alice on 2021/4/26
+ * @author Alice on 2021/5/12
  * @version 1.0
  * @since 1.0
  * 基金表
@@ -94,6 +94,12 @@ public class Fund implements Serializable {
      */
     @TableField(value = "last_month_growth")
     private String lastMonthGrowth;
+
+    /**
+     * 单位净值三月涨幅,单位为百分比
+     */
+    @TableField(value = "last_three_months_growth")
+    private String lastThreeMonthsGrowth;
 
     /**
      * 单位净值六月涨幅,单位为百分比
@@ -183,6 +189,8 @@ public class Fund implements Serializable {
     public static final String COL_LAST_WEEK_GROWTH = "last_week_growth";
 
     public static final String COL_LAST_MONTH_GROWTH = "last_month_growth";
+
+    public static final String COL_LAST_THREE_MONTHS_GROWTH = "last_three_months_growth";
 
     public static final String COL_LAST_SIX_MONTHS_GROWTH = "last_six_months_growth";
 

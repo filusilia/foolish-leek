@@ -12,6 +12,7 @@ import com.ilia.leek.entity.model.BaseResultModel;
 import com.ilia.leek.entity.model.ResultUserFund;
 import com.ilia.leek.entity.pojo.QueryFund;
 import com.ilia.leek.mapper.UserFundMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
  * @version 1.0
  * @since 1.0
  */
+@Slf4j
 @Service
 public class UserFundService extends ServiceImpl<UserFundMapper, UserFund> {
 

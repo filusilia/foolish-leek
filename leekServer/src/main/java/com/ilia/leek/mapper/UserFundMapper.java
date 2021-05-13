@@ -14,9 +14,15 @@ import java.util.List;
  */
 public interface UserFundMapper extends BaseMapper<UserFund> {
     /**
-     * 
+     * 根据用户查询基金列表
      * @param queryFund
      * @return
      */
     List<ResultUserFund> getFundsByUserId(QueryFund queryFund);
+
+    /**
+     * 查询当前项目中所有被使用的基金code
+     * @return
+     */
+    List<String> getFundsCodesDis();
 }

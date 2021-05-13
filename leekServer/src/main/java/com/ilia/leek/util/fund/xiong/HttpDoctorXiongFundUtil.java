@@ -1,11 +1,11 @@
-package com.ilia.leek.util.fund;
+package com.ilia.leek.util.fund.xiong;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 import com.ilia.leek.common.enums.ResultCode;
 import com.ilia.leek.common.exception.BaseBusinessException;
-import com.ilia.leek.util.fund.xiong.DoctorXiongResponse;
+import com.ilia.leek.util.fund.FundConstant;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
  * @since 1.0
  */
 @Slf4j
-public class HttpFundUtil {
+public class HttpDoctorXiongFundUtil {
 
     public static final String DOCTORXIONG_SUCCESS = "200";
 
@@ -31,6 +31,7 @@ public class HttpFundUtil {
         log.info("http get from DoctorXiong,fund code:{}", code);
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String result = HttpUtil.get(FundConstant.DOCTORXIONG_DETAIL + "?code=" + code + "&startDate=" + date);
+        log.info("getDetail response:{}", result);
         if (!ObjectUtil.isEmpty(result)) {
             return JSONUtil.toBean(result, DoctorXiongResponse.class);
         }
@@ -38,15 +39,17 @@ public class HttpFundUtil {
     }
 
     /**
-     * 查询天天基金网的实时基金数据
-     * e:http://fundgz.1234567.com.cn/js/001186.js?rt=1463558676006
+     * 查询小熊的基金详情
+     * e:https://api.doctorxiong.club/v1/fund/detail?code=000001&startDate=2020-09-01
      *
-     * @return String
+     * @return {@link DoctorXiongResponse}
      */
-    public static String getRealTime(String code) {
-        String result = HttpUtil.get(FundConstant.FUNDGZ_REAL_TIME + "/" + code + ".js?rt=" + System.currentTimeMillis());
+    public static DoctorXiongResponse getFund(String codes) {
+        log.info("http get from DoctorXiong,fund list:{}", codes);
+        String result = HttpUtil.get(FundConstant.DOCTORXIONG_FUND + "?code=" + codes);
+        log.info("getFund response:{}", result);
         if (!ObjectUtil.isEmpty(result)) {
-            return result;
+            return JSONUtil.toBean(result, DoctorXiongResponse.class);
         }
         throw new BaseBusinessException(ResultCode.NET_ERROR);
     }

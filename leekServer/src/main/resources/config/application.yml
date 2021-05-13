@@ -18,7 +18,7 @@ spring:
     # token前缀
     tokenPrefix: Bearer
     # token有效期，单位s 默认30天, -1代表永不过期
-    timeout: 2592000
+    timeout: 1200
     # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
     activity-timeout: -1
     # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
@@ -27,6 +27,19 @@ spring:
     is-share: true
     # token风格
     token-style: uuid
+  quartz:
+    #相关属性配置
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: quartzScheduler
+            instanceId: AUTO
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
 springfox:
   documentation:
     enabled: on

@@ -23,10 +23,21 @@ public class FundConstant {
     public static long TIME_OUT = 1000 * 60;
 
     /**
+     * 基金详情更新时距
+     */
+    public static String CRON = "0 */10 * * * ?";
+
+    /**
      * 小熊同学
      * 获取基金详情
      */
     public static String DOCTORXIONG_DETAIL = "";
+
+    /**
+     * 小熊同学
+     * 获取基金详情
+     */
+    public static String DOCTORXIONG_FUND = "";
 
     /**
      * 天天基金网
@@ -39,9 +50,19 @@ public class FundConstant {
         TIME_OUT = timeOut;
     }
 
+    @Value("${fund.cron}")
+    public void setCRON(String CRON) {
+        FundConstant.CRON = CRON;
+    }
+
     @Value("${doctorxiong.detail}")
     private void setDoctorxiongDetail(String doctorxiongDetail) {
         DOCTORXIONG_DETAIL = doctorxiongDetail;
+    }
+
+    @Value("${doctorxiong.fund}")
+    public void setDoctorxiongFund(String doctorxiongFund) {
+        DOCTORXIONG_FUND = doctorxiongFund;
     }
 
     @Value("${fundgz.real_time}")

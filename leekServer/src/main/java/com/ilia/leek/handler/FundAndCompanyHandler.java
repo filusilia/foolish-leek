@@ -1,19 +1,24 @@
 package com.ilia.leek.handler;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import com.ilia.leek.common.enums.ResultCode;
 import com.ilia.leek.common.exception.BaseBusinessException;
 import com.ilia.leek.entity.Fund;
 import com.ilia.leek.util.fund.FundAndCompanyRequestInterface;
 import com.ilia.leek.util.fund.FundConstant;
-import com.ilia.leek.util.fund.HttpFundUtil;
+import com.ilia.leek.util.fund.fundgz.HttpFundgzFundUtil;
 import com.ilia.leek.util.fund.xiong.DoctorXiongResponse;
+import com.ilia.leek.util.fund.xiong.DoctorXiongUtil;
+import com.ilia.leek.util.fund.xiong.HttpDoctorXiongFundUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import static com.ilia.leek.util.fund.HttpFundUtil.DOCTORXIONG_SUCCESS;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 
 /**
  * @author Alice on 2021/4/26
@@ -21,7 +26,6 @@ import static com.ilia.leek.util.fund.HttpFundUtil.DOCTORXIONG_SUCCESS;
  * @since 1.0
  */
 @Service
-@Component("fundAndCompanyHandler")
 @Slf4j
 public class FundAndCompanyHandler implements FundAndCompanyRequestInterface {
     @Override
@@ -31,45 +35,53 @@ public class FundAndCompanyHandler implements FundAndCompanyRequestInterface {
         }
         //1
         try {
-            DoctorXiongResponse res = HttpFundUtil.getDetail(code);
-            if (DOCTORXIONG_SUCCESS.equals(res.getCode())) {
-                return createFundByDoctorXiong(res.getData());
+            DoctorXiongResponse res = HttpDoctorXiongFundUtil.getDetail(code);
+            if (HttpDoctorXiongFundUtil.DOCTORXIONG_SUCCESS.equals(res.getCode())) {
+                Fund fund = DoctorXiongUtil.createFundByDoctorXiong(res.getData());
+                if (null != fund && Objects.equals(code, fund.getFundCode())) {
+                    return fund;
+                }
+                log.info("解析fund失败.");
+                return null;
             }
         } catch (BaseBusinessException exception) {
             //BaseBusinessException
-            String result = HttpFundUtil.getRealTime(code);
+            String result = HttpFundgzFundUtil.getRealTime(code);
             log.info(result);
         }
-
         log.info("get fund failed");
         return null;
     }
 
-    /**
-     * 解析小熊的数据
-     *
-     * @param data DoctorXiongResponse.data
-     * @return Fund
-     */
-    private static Fund createFundByDoctorXiong(String data) {
-        if (ObjectUtil.isEmpty(data)) {
-            return null;
+    @Override
+    public List<Fund> getDetailByCodes(List<String> codes) {
+        if (ObjectUtil.isEmpty(codes)) {
+            throw new BaseBusinessException(ResultCode.PARAMETER_ERROR);
         }
-        return JSONUtil.toBean(data, Fund.class);
-    }
-
-    /**
-     * 解析天天基金网的数据
-     * ><太复杂了,有时间再写
-     * @param data data
-     * @return Fund
-     */
-    private static Fund createFundByFundgz(String data) {
-        if (ObjectUtil.isEmpty(data)) {
-            return null;
+        StringBuilder codeString = new StringBuilder();
+        for (int i = 0; i < codes.size(); i++) {
+            if (codes.get(i).length() == FundConstant.FUND_CODE_LENGTH) {
+                codeString.append(codes.get(i));
+                if (i < codes.size() - 1) {
+                    codeString.append(",");
+                }
+            }
         }
+        try {
+            DoctorXiongResponse res = HttpDoctorXiongFundUtil.getFund(codeString.toString());
+            if (HttpDoctorXiongFundUtil.DOCTORXIONG_SUCCESS.equals(res.getCode())) {
+                JSONArray jsonArray = JSONUtil.parseArray(res.getData());
+                List<Fund> list = new ArrayList<>();
+                jsonArray.stream().iterator().forEachRemaining(ele -> {
+                    Fund fund = DoctorXiongUtil.createFundByDoctorXiong(ele.toString());
+                    list.add(fund);
+                });
+                return list;
+            }
+        } catch (BaseBusinessException exception) {
+            //BaseBusinessException
 
-        return JSONUtil.toBean(data, Fund.class);
+        }
+        return null;
     }
-
 }

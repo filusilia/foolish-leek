@@ -17,6 +17,7 @@
     <result column="day_growth" jdbcType="VARCHAR" property="dayGrowth" />
     <result column="last_week_growth" jdbcType="VARCHAR" property="lastWeekGrowth" />
     <result column="last_month_growth" jdbcType="VARCHAR" property="lastMonthGrowth" />
+    <result column="last_three_months_growth" jdbcType="VARCHAR" property="lastThreeMonthsGrowth" />
     <result column="last_six_months_growth" jdbcType="VARCHAR" property="lastSixMonthsGrowth" />
     <result column="last_year_growth" jdbcType="VARCHAR" property="lastYearGrowth" />
     <result column="buy_min" jdbcType="DECIMAL" property="buyMin" />
@@ -29,7 +30,8 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     id, fund_code, fund_name, short_name, fund_full_pinyin, fund_type, net_worth, expect_worth, 
-    total_worth, expect_growth, day_growth, last_week_growth, last_month_growth, last_six_months_growth, 
-    last_year_growth, buy_min, buy_source_rate, fund_rate, manager, create_time, update_time
+    total_worth, expect_growth, day_growth, last_week_growth, last_month_growth, last_three_months_growth, 
+    last_six_months_growth, last_year_growth, buy_min, buy_source_rate, fund_rate, manager, 
+    create_time, update_time
   </sql>
 </mapper>

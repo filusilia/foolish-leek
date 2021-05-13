@@ -33,4 +33,9 @@
     </if>
     order by fuf.sort
   </select>
+
+  <select id="getFundsCodesDis" resultType="java.lang.String">
+    select distinct fuf.fund_code
+    from ft_user_fund fuf
+  </select>
 </mapper>
