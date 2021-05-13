@@ -41,7 +41,7 @@ public class CustomWebConfigureAdapter implements WebMvcConfigurer {
             // 权限认证 -- 不同模块, 校验不同权限
 //            SaRouterUtil.match("/fund/**", () -> StpUtil.checkPermission("admin"));
             // 匹配 restful 风格路由
-            SaRouterUtil.match("/fund/get/{id}", () -> StpUtil.checkPermission("article"));
+            SaRouterUtil.match("/fund/get/{id}", () -> StpUtil.checkPermission("user"));
 
             // 检查请求方式
             SaRouterUtil.match("/notice/**", () -> {
