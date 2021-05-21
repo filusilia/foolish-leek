@@ -31,7 +31,7 @@ public class FundController {
     /**
      * 添加我的基金
      *
-     * @param queryFund
+     * @param queryFund 查询基金
      * @return ResultResponse
      */
     @RequestMapping("addMyFund")
@@ -43,17 +43,31 @@ public class FundController {
     }
 
     /**
-     * 查询基金实时信息
+     * 最喜欢的基金
      *
-     * @param queryFund
+     * @param queryFund 查询基金
      * @return ResultResponse
      */
-    @RequestMapping("realTimeFund")
-    public ResultResponse<Object> realTimeFund(@RequestBody QueryFund queryFund) {
+    @RequestMapping("favoriteFund")
+    public ResultResponse<Object> favoriteFund(@RequestBody QueryFund queryFund) {
+        if (ObjectUtil.hasEmpty(queryFund, queryFund.getFundCode())) {
+            return ResultResponse.failed(ResultCode.PARAMETER_NULL);
+        }
+        return userFundService.favoriteFund(queryFund);
+    }
+
+    /**
+     * 搜索基金
+     *
+     * @param queryFund 查询基金
+     * @return ResultResponse
+     */
+    @RequestMapping("searchFund")
+    public ResultResponse<Object> searchFund(@RequestBody QueryFund queryFund) {
         if (ObjectUtil.hasEmpty(queryFund)) {
             return ResultResponse.failed(ResultCode.PARAMETER_NULL);
         }
-        return fundService.realTimeFundByCode(queryFund.getFundCode());
+        return fundService.getFund(queryFund);
     }
 
     /**
@@ -71,7 +85,9 @@ public class FundController {
     }
 
     /**
-     * @param queryFund
+     * 实时基金代码
+     *
+     * @param queryFund 查询基金
      * @return ResultResponse
      */
     @RequestMapping("realTimeFundByCode")

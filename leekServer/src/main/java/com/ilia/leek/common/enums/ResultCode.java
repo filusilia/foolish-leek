@@ -10,6 +10,7 @@ package com.ilia.leek.common.enums;
  * 2x：用户类异常
  * 3x:操作类异常
  * 4x:网络类异常
+ * 5x:业务类异常
  * </p>
  */
 public enum ResultCode {
@@ -87,17 +88,27 @@ public enum ResultCode {
     /**
      * 查询,操作结果为空
      */
-    SEARCH_NULL("3001", "操作结果为空！"),
+    SEARCH_NULL("3001", "查询结果为空！"),
+
+    /**
+     * 查询,操作结果为空
+     */
+    SEARCH_NOT_ALLOWED("3002", "查询请求失败,拒绝查询!"),
 
     /**
      * 处理部分操作失败
      */
-    MAKE_FALSE("3002", "处理部分操作失败！"),
+    MAKE_FALSE("3005", "处理部分操作失败！"),
 
     /**
      * 请求远程网络异常
      */
     NET_ERROR("4001", "远程请求失败！"),
+
+    /**
+     * 没有找到基金
+     */
+    NO_FUND("5001", "没有找到基金！"),
 
     /**
      * 非法请求

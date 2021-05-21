@@ -3,8 +3,8 @@ package com.ilia.leek.quartz.fund;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.ilia.leek.entity.Fund;
-import com.ilia.leek.mapper.FundMapper;
 import com.ilia.leek.mapper.UserFundMapper;
+import com.ilia.leek.service.FundService;
 import com.ilia.leek.util.fund.FundAndCompanyRequestInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.DisallowConcurrentExecution;
@@ -28,7 +28,7 @@ public class FundRealTimeJob extends QuartzJobBean {
     @Autowired
     private UserFundMapper userFundMapper;
     @Autowired
-    private FundMapper fundMapper;
+    private FundService fundService;
     @Autowired
     private FundAndCompanyRequestInterface fundAndCompanyHandler;
 
@@ -53,7 +53,7 @@ public class FundRealTimeJob extends QuartzJobBean {
                     wrapper.set(Fund::getLastThreeMonthsGrowth, fund.getLastThreeMonthsGrowth());
                     wrapper.set(Fund::getLastSixMonthsGrowth, fund.getLastSixMonthsGrowth());
                     wrapper.set(Fund::getLastYearGrowth, fund.getLastYearGrowth());
-                    fundMapper.update(fund, wrapper);
+                    fundService.update(fund, wrapper);
                 }
                 log.info("更新列表完毕.");
             }

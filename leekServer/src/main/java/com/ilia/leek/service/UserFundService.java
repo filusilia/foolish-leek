@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.ilia.leek.common.enums.ResultCode;
 import com.ilia.leek.common.result.ResultResponse;
 import com.ilia.leek.entity.UserFund;
 import com.ilia.leek.entity.model.BaseResultModel;
@@ -45,6 +46,26 @@ public class UserFundService extends ServiceImpl<UserFundMapper, UserFund> {
         userFund.setFavorite(queryFund.getFavorite());
         userFund.setSort(queryFund.getOrder());
         boolean success = save(userFund);
+        return success ? ResultResponse.success() : ResultResponse.failed();
+    }
+
+    /**
+     * 最喜欢的基金
+     *
+     * @param queryFund 查询基金
+     * @return {@link ResultResponse<Object>}
+     */
+    public ResultResponse<Object> favoriteFund(QueryFund queryFund) {
+        Long userId = (Long) StpUtil.getLoginId();
+        LambdaQueryWrapper<UserFund> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(UserFund::getUserId, userId);
+        wrapper.eq(UserFund::getFundCode, queryFund.getFundCode());
+        UserFund userFund = getOne(wrapper);
+        if (ObjectUtil.isEmpty(userFund)) {
+            return ResultResponse.failed(ResultCode.NO_FUND);
+        }
+        userFund.setFavorite(queryFund.getFavorite());
+        boolean success = updateById(userFund);
         return success ? ResultResponse.success() : ResultResponse.failed();
     }
 

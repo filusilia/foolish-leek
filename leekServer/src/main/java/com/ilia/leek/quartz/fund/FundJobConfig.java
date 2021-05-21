@@ -23,7 +23,6 @@ public class FundJobConfig {
     public JobDetail fundRealTimeJobDetail() {
         return JobBuilder.newJob(FundRealTimeJob.class)
                 .withIdentity("fundJobDetail", JOB_GET_FUND_DETAIL)
-                .usingJobData("userName", "pan_junbiao的博客")
                 .storeDurably()
                 .build();
     }

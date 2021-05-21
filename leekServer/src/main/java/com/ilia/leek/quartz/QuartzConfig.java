@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import javax.annotation.PreDestroy;
-import java.util.Date;
 
 /**
  * @author Alice on 2021/5/12
@@ -47,7 +46,7 @@ public class QuartzConfig {
             JobDetail jobDetail = fundJobConfig.fundRealTimeJobDetail();
             log.info("job build success.");
             log.info("ScheduleJob init first .");
-            Date date = scheduler.scheduleJob(jobDetail, fundJobConfig.fundJobTrigger());
+            scheduler.scheduleJob(jobDetail, fundJobConfig.fundJobTrigger());
         } catch (SchedulerException e) {
             log.error("init ScheduleJob error ,error message :{}", e.getMessage());
         }
