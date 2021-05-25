@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Locale;
 
 /**
  * @author Alice on 2021/4/20
@@ -37,44 +36,32 @@ public class FundService extends ServiceImpl<FundMapper, Fund> {
         this.fundAndCompanyHandler = fundAndCompanyHandler;
     }
 
+
     /**
-     * 查询基金
-     * 目前采用简单的模糊查询方式
+     * 搜索基金
      *
-     * @param queryFund
-     * @return
+     * @param queryFund 查询基金
+     * @return {@link ResultResponse<Object>}
      */
-    public ResultResponse<Object> getFund(QueryFund queryFund) {
+    public ResultResponse<Object> searchFunds(QueryFund queryFund) {
         if (ObjectUtil.isAllEmpty(queryFund, queryFund.getFundCode(),
                 queryFund.getFundName(), queryFund.getPinyin(), queryFund.getFundType())) {
             return ResultResponse.failed(ResultCode.SEARCH_NOT_ALLOWED);
         }
-        LambdaQueryWrapper<Fund> wrapper = new LambdaQueryWrapper<>();
-        if (ObjectUtil.isNotEmpty(queryFund.getFundCode())) {
-            wrapper.like(Fund::getFundCode, queryFund.getFundCode());
-        }
-        if (ObjectUtil.isNotEmpty(queryFund.getFundName())) {
-            wrapper.like(Fund::getFundName, queryFund.getFundName());
-        }
-        if (ObjectUtil.isNotEmpty(queryFund.getPinyin())) {
-            String pinyin = queryFund.getPinyin().toUpperCase(Locale.SIMPLIFIED_CHINESE);
-            wrapper.like(Fund::getFundFullPinyin, pinyin)
-                    .or()
-                    .like(Fund::getShortName, pinyin);
-        }
         Page<ResultUserFund> page = PageHelper.startPage(queryFund.getPage(), queryFund.getPageSize())
-                .doSelectPage(() ->list(wrapper));
+                .doSelectPage(() -> searchFunds(queryFund));
         BaseResultModel<ResultUserFund> resultModel = new BaseResultModel<>();
         resultModel.setTotal(page.getTotal());
         resultModel.setData(page.getResult());
         return ResultResponse.success(resultModel);
     }
 
+
     /**
-     * 获取基金实时信息
+     * 查询基金实时信息
      *
-     * @param code
-     * @return
+     * @param code 代码
+     * @return {@link ResultResponse<Object>}
      */
     public ResultResponse<Object> realTimeFundByCode(String code) {
         LambdaQueryWrapper<Fund> wrapper = new LambdaQueryWrapper<>();

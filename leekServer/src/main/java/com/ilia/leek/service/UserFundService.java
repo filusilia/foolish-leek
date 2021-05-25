@@ -28,8 +28,8 @@ public class UserFundService extends ServiceImpl<UserFundMapper, UserFund> {
     /**
      * 添加我的基金
      *
-     * @param queryFund
-     * @return
+     * @param queryFund 查询基金
+     * @return {@link ResultResponse<Object>}
      */
     public ResultResponse<Object> addMyFund(QueryFund queryFund) {
         Long userId = (Long) StpUtil.getLoginId();
@@ -69,11 +69,12 @@ public class UserFundService extends ServiceImpl<UserFundMapper, UserFund> {
         return success ? ResultResponse.success() : ResultResponse.failed();
     }
 
+
     /**
      * 分页查询我的基金
      *
-     * @param queryFund
-     * @return
+     * @param queryFund 查询基金
+     * @return {@link ResultResponse<Object>}
      */
     public ResultResponse<Object> getMyFunds(QueryFund queryFund) {
         Long userId = StpUtil.getLoginIdAsLong();

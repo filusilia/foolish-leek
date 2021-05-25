@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,10 +61,11 @@ public class UserController {
         return userService.doLogin(loginKey, password);
     }
 
+
     /**
      * 刷新token
      *
-     * @return Object
+     * @return {@link ResultResponse<Object>}
      */
     @RequestMapping("updateLogin")
     public ResultResponse<Object> updateLogin() {
@@ -73,43 +73,28 @@ public class UserController {
         return ResultResponse.success();
     }
 
+
     /**
-     * 验证登录
+     * 验证是否登录
      *
-     * @param request
-     * @return Boolean
+     * @return {@link ResultResponse<Boolean>}
      */
     @RequestMapping("isLogin")
-    public ResultResponse<Boolean> isLogin(HttpServletRequest request) {
+    public ResultResponse<Boolean> isLogin() {
         return ResultResponse.success(StpUtil.isLogin());
     }
 
+
     /**
-     * 退出登录
+     * 注销
      *
-     * @return Boolean
+     * @return {@link ResultResponse<Boolean>}
      */
     @RequestMapping("logout")
     public ResultResponse<Boolean> logout() {
         StpUtil.logout();
         return ResultResponse.success();
     }
-
-    /**
-     * 收藏基金
-     *
-     * @param param
-     * @return
-     */
-    @RequestMapping("favorite")
-    public ResultResponse<String> favoriteFund(@RequestBody JSONObject param) {
-        String code = param.getStr("code");
-        if (ObjectUtil.isEmpty(code)) {
-            return ResultResponse.failed(ResultCode.PARAMETER_NULL);
-        }
-        return ResultResponse.success();
-    }
-
 
     /**
      * 写入所有基金数据到基金表
