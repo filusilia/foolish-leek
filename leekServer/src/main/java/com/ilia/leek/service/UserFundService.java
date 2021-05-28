@@ -32,7 +32,7 @@ public class UserFundService extends ServiceImpl<UserFundMapper, UserFund> {
      * @return {@link ResultResponse<Object>}
      */
     public ResultResponse<Object> addMyFund(QueryFund queryFund) {
-        Long userId = (Long) StpUtil.getLoginId();
+        Long userId = StpUtil.getLoginIdAsLong();
         LambdaQueryWrapper<UserFund> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(UserFund::getUserId, userId);
         wrapper.eq(UserFund::getFundCode, queryFund.getFundCode());
@@ -50,13 +50,28 @@ public class UserFundService extends ServiceImpl<UserFundMapper, UserFund> {
     }
 
     /**
+     * 解绑基金
+     *
+     * @param queryFund 查询基金
+     * @return {@link ResultResponse<Object>}
+     */
+    public ResultResponse<Object> unlockMyFund(QueryFund queryFund) {
+        Long userId = StpUtil.getLoginIdAsLong();
+        LambdaQueryWrapper<UserFund> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(UserFund::getUserId, userId);
+        wrapper.eq(UserFund::getFundCode, queryFund.getFundCode());
+        boolean success = remove(wrapper);
+        return success ? ResultResponse.success() : ResultResponse.failed();
+    }
+
+    /**
      * 最喜欢的基金
      *
      * @param queryFund 查询基金
      * @return {@link ResultResponse<Object>}
      */
     public ResultResponse<Object> favoriteFund(QueryFund queryFund) {
-        Long userId = (Long) StpUtil.getLoginId();
+        Long userId = StpUtil.getLoginIdAsLong();
         LambdaQueryWrapper<UserFund> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(UserFund::getUserId, userId);
         wrapper.eq(UserFund::getFundCode, queryFund.getFundCode());

@@ -36,7 +36,7 @@
   </sql>
 
   <select id="searchFunds" parameterType="com.ilia.leek.entity.pojo.QueryFund" resultType="com.ilia.leek.entity.model.ResultUserFund">
-    select fuf.*,ff.*
+    select ff.*,fuf.*
     from ft_fund ff left join ft_user_fund fuf on fuf.fund_code = ff.fund_code
     <where>
       <if test="pinyin != null and pinyin != ''">
@@ -44,10 +44,10 @@
         or ff.short_name like concat('%',#{pinyin},'%')
       </if>
       <if test="fundName != null and fundName != ''">
-        and ff.fund_name like concat('%',#{pinyin},'%')
+        and ff.fund_name like concat('%',#{fundName},'%')
       </if>
       <if test="fundCode != null and fundCode != ''">
-        and ff.fund_code= #{fundCode}
+        and ff.fund_code like concat('%',#{fundCode},'%')
       </if>
     </where>
     order by ff.fund_code

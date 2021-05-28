@@ -49,7 +49,7 @@ public class FundService extends ServiceImpl<FundMapper, Fund> {
             return ResultResponse.failed(ResultCode.SEARCH_NOT_ALLOWED);
         }
         Page<ResultUserFund> page = PageHelper.startPage(queryFund.getPage(), queryFund.getPageSize())
-                .doSelectPage(() -> searchFunds(queryFund));
+                .doSelectPage(() -> getBaseMapper().searchFunds(queryFund));
         BaseResultModel<ResultUserFund> resultModel = new BaseResultModel<>();
         resultModel.setTotal(page.getTotal());
         resultModel.setData(page.getResult());

@@ -42,6 +42,21 @@ public class FundController {
         return userFundService.addMyFund(queryFund);
     }
 
+
+    /**
+     * 解绑基金
+     *
+     * @param queryFund 查询基金
+     * @return {@link ResultResponse<Object>}
+     */
+    @RequestMapping("unlockMyFund")
+    public ResultResponse<Object> unlockMyFund(@RequestBody QueryFund queryFund) {
+        if (ObjectUtil.hasEmpty(queryFund, queryFund.getFundCode())) {
+            return ResultResponse.failed(ResultCode.PARAMETER_NULL);
+        }
+        return userFundService.unlockMyFund(queryFund);
+    }
+
     /**
      * 最喜欢的基金
      *

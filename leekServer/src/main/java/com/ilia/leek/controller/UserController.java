@@ -1,5 +1,6 @@
 package com.ilia.leek.controller;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.io.file.FileReader;
 import cn.hutool.core.util.ObjectUtil;
@@ -69,8 +70,16 @@ public class UserController {
      */
     @RequestMapping("updateLogin")
     public ResultResponse<Object> updateLogin() {
-        StpUtil.updateLastActivityToNow();
-        return ResultResponse.success();
+        try {
+            StpUtil.checkActivityTimeout();
+            StpUtil.updateLastActivityToNow();
+        } catch (NotLoginException e) {
+            if (NotLoginException.TOKEN_TIMEOUT.equals(e.getType())) {
+                log.error("登录已经超时,不允许续期.");
+            }
+            return ResultResponse.failed();
+        }
+        return ResultResponse.success(StpUtil.getTokenInfo());
     }
 
 
