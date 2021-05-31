@@ -19,20 +19,23 @@ import java.util.Set;
 public class CustomBeanUtil {
 
     /**
+     * 把参数
      * 赋值类,跳过空属性
-     * @param target
-     * @param old
+     *
+     * @param target 目标
+     * @param old    原bean
      */
     public static void pushParam(Object target, Object old) {
         if (ObjectUtil.hasEmpty(target, old)) {
             throw new BaseBusinessException(ResultCode.MAKE_FALSE);
         }
-        BeanUtil.copyProperties(old, target, CustomBeanUtil.getNullPropertyNames(old));
+        BeanUtil.copyProperties(target, old, CustomBeanUtil.getNullPropertyNames(old));
     }
 
 
     /**
      * 获取bean中空的属性
+     *
      * @param source source
      * @return String[]
      */
@@ -41,7 +44,7 @@ public class CustomBeanUtil {
         PropertyDescriptor[] pds = src.getPropertyDescriptors();
 
         Set<String> emptyNames = new HashSet<>();
-        for(java.beans.PropertyDescriptor pd : pds) {
+        for (java.beans.PropertyDescriptor pd : pds) {
             Object srcValue = src.getPropertyValue(pd.getName());
             if (srcValue == null) {
                 emptyNames.add(pd.getName());

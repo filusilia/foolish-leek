@@ -15,6 +15,14 @@ import java.util.List;
 public interface FundMapper extends BaseMapper<Fund> {
 
     /**
+     * 根据基金代码获取基金信息(包含是否绑定
+     *
+     * @param code 代码
+     * @return {@link ResultUserFund}
+     */
+    ResultUserFund getLinkFundByCode(String code);
+
+    /**
      * 搜索基金
      *
      * @param query 查询

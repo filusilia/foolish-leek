@@ -1,7 +1,6 @@
 package com.ilia.leek.service;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -64,9 +63,7 @@ public class FundService extends ServiceImpl<FundMapper, Fund> {
      * @return {@link ResultResponse<Object>}
      */
     public ResultResponse<Object> realTimeFundByCode(String code) {
-        LambdaQueryWrapper<Fund> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Fund::getFundCode, code);
-        Fund fund = getOne(wrapper);
+        ResultUserFund fund = baseMapper.getLinkFundByCode(code);
         if (ObjectUtil.isEmpty(fund)) {
             return ResultResponse.failed(ResultCode.SEARCH_NULL);
         }
@@ -83,8 +80,8 @@ public class FundService extends ServiceImpl<FundMapper, Fund> {
             if (!success) {
                 log.warn("更新基金实时信息失败,基金code:{},newFund:{}", fund.getId(), newFund);
             }
-            CustomBeanUtil.pushParam(newFund, fund);
-            return ResultResponse.success(newFund);
+            CustomBeanUtil.pushParam(fund,newFund);
+            return ResultResponse.success(fund);
         }
         //未超时返回数据
         return ResultResponse.success(fund);

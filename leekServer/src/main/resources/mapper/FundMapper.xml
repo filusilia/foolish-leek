@@ -29,12 +29,18 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, fund_code, fund_name, short_name, fund_full_pinyin, fund_type, net_worth, expect_worth, 
-    total_worth, expect_growth, day_growth, last_week_growth, last_month_growth, last_three_months_growth, 
-    last_six_months_growth, last_year_growth, buy_min, buy_source_rate, fund_rate, manager, 
+    id, fund_code, fund_name, short_name, fund_full_pinyin, fund_type, net_worth, expect_worth,
+    total_worth, expect_growth, day_growth, last_week_growth, last_month_growth, last_three_months_growth,
+    last_six_months_growth, last_year_growth, buy_min, buy_source_rate, fund_rate, manager,
     create_time, update_time
   </sql>
 
+  <select id="getLinkFundByCode" resultType="com.ilia.leek.entity.model.ResultUserFund">
+    select ff.*,fuf.*
+    from ft_fund ff left join ft_user_fund fuf on fuf.fund_code = ff.fund_code
+    where ff.fund_code=#{code}
+  </select>
+  
   <select id="searchFunds" parameterType="com.ilia.leek.entity.pojo.QueryFund" resultType="com.ilia.leek.entity.model.ResultUserFund">
     select ff.*,fuf.*
     from ft_fund ff left join ft_user_fund fuf on fuf.fund_code = ff.fund_code
