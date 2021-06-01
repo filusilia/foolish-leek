@@ -108,6 +108,7 @@ public class UserController {
     /**
      * 写入所有基金数据到基金表
      * 一次写入 受益终身
+     * 目前数量为12436
      */
     @Deprecated
     public ResultResponse<Object> pullAll() {
@@ -128,9 +129,9 @@ public class UserController {
 //        fundService.saveBatch(list);
         List<Fund> funds = fundService.list();
         List<Fund> n = list.stream().filter(item -> !funds.contains(item)).collect(Collectors.toList());
-//        for (Fund fund : list) {
-//             fundService.save(fund);
-//        }
+        for (Fund fund : n) {
+            fundService.save(fund);
+        }
         return ResultResponse.success();
     }
 

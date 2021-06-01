@@ -18,7 +18,7 @@ import java.util.Collections;
  * @since 1.0
  */
 @Configuration
-public class CustomWebConfigureAdapter implements WebMvcConfigurer {
+public class SaWebConfigureAdapter implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -35,7 +35,7 @@ public class CustomWebConfigureAdapter implements WebMvcConfigurer {
         // 注册路由拦截器，自定义验证规则
         registry.addInterceptor(new SaRouteInterceptor((request, response, handler) -> {
             // 登录验证 -- 排除多个路径
-            SaRouterUtil.match(Collections.singletonList("/**"), Arrays.asList("/user/login", "/user/isLogin"), StpUtil::checkLogin);
+            SaRouterUtil.match(Collections.singletonList("/**"), Arrays.asList("/user/login","/user/putAll", "/user/isLogin"), StpUtil::checkLogin);
             // 角色认证 -- 拦截以 admin 开头的路由，必须具备[admin]角色或者[super-admin]角色才可以通过认证
             SaRouterUtil.match("/admin/**", () -> StpUtil.checkRoleOr("admin", "super-admin"));
             // 权限认证 -- 不同模块, 校验不同权限
