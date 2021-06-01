@@ -12,6 +12,9 @@ server:
 spring:
   profiles:
     active: dev,fund
+  mvc:
+    throw-exception-if-no-handler-found: true
+    static-path-pattern: /statics/**
   sa-token:
     # token名称 (同时也是cookie名称)
     token-name: cutetoken
