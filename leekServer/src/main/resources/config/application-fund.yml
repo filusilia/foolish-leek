@@ -1,13 +1,17 @@
 #超时时间
 fund:
   timeout: 300000
-  cron: 0 */10 * * * ?
+  cron: 0 */5 * * * ?
 #小熊同学
 doctorxiong:
   #获取基金详情
   detail: https://api.doctorxiong.club/v1/fund/detail
   #获取基金基础信息
   fund: https://api.doctorxiong.club/v1/fund
+  #获取热门基金
+  hot: https://api.doctorxiong.club/v1/fund/hot
+  #获取基金排行
+  rank: https://api.doctorxiong.club/v1/fund/rank
 #天天基金网
 fundgz:
   #基金实时信息

@@ -86,6 +86,11 @@ public enum ResultCode {
     USER_NO_LOGIN("2005", "未登录！"),
 
     /**
+     * 用户信息不符
+     */
+    USER_NOT_RIGHT("2006", "用户信息不符！"),
+
+    /**
      * 查询,操作结果为空
      */
     SEARCH_NULL("3001", "查询结果为空！"),

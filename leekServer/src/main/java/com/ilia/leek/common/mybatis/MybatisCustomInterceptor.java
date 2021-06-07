@@ -21,7 +21,6 @@ import java.util.Properties;
  */
 @Deprecated
 @Slf4j
-//@Component
 @Intercepts({@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})})
 public class MybatisCustomInterceptor implements Interceptor {
 

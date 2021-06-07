@@ -7,13 +7,13 @@ package com.ilia.leek.common.exception;
  */
 public class MethodNotSupportException extends RuntimeException {
     private static final long serialVersionUID = 8579551458856455128L;
-    private static final int code = 2000;
+    private static final int CODE = 2000;
 
     public MethodNotSupportException(String methodName) {
         super("Method " + methodName + " not support!");
     }
 
     public static int getCode() {
-        return code;
+        return CODE;
     }
 }

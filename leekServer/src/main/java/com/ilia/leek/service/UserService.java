@@ -2,8 +2,10 @@ package com.ilia.leek.service;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ilia.leek.common.enums.LoginType;
 import com.ilia.leek.common.enums.ResultCode;
@@ -73,6 +75,29 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         jsonObject.set("per_list", "");
         jsonObject.set("token", StpUtil.getTokenInfo());
         return ResultResponse.success(jsonObject);
+    }
+
+    /**
+     * 更新自己
+     *
+     * @param user 用户
+     * @return {@link ResultResponse<Object>}
+     */
+    public ResultResponse<Object> updateMyself(User user) {
+        LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(User::getId, StpUtil.getLoginIdAsLong());
+        if (ObjectUtil.isNotEmpty(user.getNickname())) {
+            wrapper.set(User::getNickname, user.getNickname());
+        }
+        if (ObjectUtil.isNotEmpty(user.getSex())) {
+            wrapper.set(User::getSex, user.getSex());
+        }
+
+        if (ObjectUtil.isNotEmpty(user.getAvatar())) {
+            wrapper.set(User::getAvatar, user.getAvatar());
+        }
+        boolean success = update(wrapper);
+        return success ? ResultResponse.success() : ResultResponse.failed();
     }
 }
 

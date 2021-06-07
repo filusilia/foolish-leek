@@ -10,10 +10,9 @@ import java.time.LocalDateTime;
  * @author Alice on 2021/4/20
  * @version 1.0
  * @since 1.0
+ * 登录记录
  */
-/**
-    * 登录记录
-    */
+
 @Data
 @TableName(value = "leek.ft_login_log")
 public class LoginLog implements Serializable {

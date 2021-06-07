@@ -7,14 +7,13 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ *
  * @author Alice on 2021/4/26
  * @version 1.0
  * @since 1.0
- */
-
-/**
  * 用户基金表
  */
+
 @Data
 @TableName(value = "leek.ft_user_fund")
 public class UserFund implements Serializable {

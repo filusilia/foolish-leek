@@ -46,6 +46,16 @@
       "description": "小熊同学-获取基金基础信息."
     },
     {
+      "name": "doctorxiong.hot",
+      "type": "java.lang.String",
+      "description": "小熊同学-获取热门基金."
+    },
+    {
+      "name": "doctorxiong.rank",
+      "type": "java.lang.String",
+      "description": "小熊同学-获取基金排行."
+    },
+    {
       "name": "fundgz.real_time",
       "type": "java.lang.String",
       "description": "天天基金网-基金实时信息."

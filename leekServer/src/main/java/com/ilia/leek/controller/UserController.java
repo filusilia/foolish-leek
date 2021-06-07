@@ -11,6 +11,7 @@ import com.ilia.leek.common.enums.ResultCode;
 import com.ilia.leek.common.result.ResultResponse;
 import com.ilia.leek.entity.Fund;
 import com.ilia.leek.entity.FundCompany;
+import com.ilia.leek.entity.User;
 import com.ilia.leek.service.FundCompanyService;
 import com.ilia.leek.service.FundService;
 import com.ilia.leek.service.UserService;
@@ -62,6 +63,20 @@ public class UserController {
         return userService.doLogin(loginKey, password);
     }
 
+    /**
+     * 更新自己
+     * (目前允许更改性别,昵称,头像)
+     *
+     * @param user 用户
+     * @return {@link ResultResponse<Object>}
+     */
+    @RequestMapping("updateMyself")
+    public ResultResponse<Object> updateMyself(User user) {
+        if (ObjectUtil.isEmpty(user)) {
+            return ResultResponse.failed(ResultCode.PARAMETER_NULL);
+        }
+        return userService.updateMyself(user);
+    }
 
     /**
      * 刷新token
