@@ -16,25 +16,26 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.0</version>
+        <version>2.5.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
+        <boot.version>2.5.1</boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
         <lombok.version>1.18.20</lombok.version>
-        <mybatis-plus.version>3.4.3</mybatis-plus.version>
-        <pagehelper.version>1.3.0</pagehelper.version>
+        <mybatis-plus.version>3.4.3.1</mybatis-plus.version>
+        <pagehelper.version>1.3.1</pagehelper.version>
         <mysql.version>8.0.25</mysql.version>
-        <sa-token.version>1.19.0</sa-token.version>
+        <sa-token.version>1.20.0</sa-token.version>
         <springfox.version>3.0.0</springfox.version>
         <jjwt.version>0.11.2</jjwt.version>
         <xxl-job.version>2.3.0</xxl-job.version>
-        <hutool.version>5.6.5</hutool.version>
+        <hutool.version>5.6.6</hutool.version>
         <poi.version>5.0.0</poi.version>
 
         <dom4j.version>2.1.3</dom4j.version>
@@ -171,6 +172,7 @@
                     <mainClass>com.ilia.leek.LeekApplication</mainClass>
                     <fork>true</fork>
                 </configuration>
+                <version>${boot.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

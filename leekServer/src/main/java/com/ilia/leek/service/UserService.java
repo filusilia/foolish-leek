@@ -62,7 +62,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             return ResultResponse.failed(ResultCode.USER_LOGIN_CANCEL);
         }
         //登录成功
-        StpUtil.setLoginId(user.getId());
+        StpUtil.login(user.getId());
         JSONObject jsonObject = new JSONObject();
         //清空敏感数据
         user.setId(null);

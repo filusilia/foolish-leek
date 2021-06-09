@@ -1,7 +1,7 @@
 package com.ilia.leek.common.interceptor;
 
 import cn.dev33.satoken.interceptor.SaRouteInterceptor;
-import cn.dev33.satoken.router.SaRouterUtil;
+import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
 import io.swagger.models.HttpMethod;
 import org.springframework.context.annotation.Configuration;
@@ -35,16 +35,16 @@ public class SaWebConfigureAdapter implements WebMvcConfigurer {
         // 注册路由拦截器，自定义验证规则
         registry.addInterceptor(new SaRouteInterceptor((request, response, handler) -> {
             // 登录验证 -- 排除多个路径
-            SaRouterUtil.match(Collections.singletonList("/**"), Arrays.asList("/user/login","/user/putAll", "/user/isLogin"), StpUtil::checkLogin);
+            SaRouter.match(Collections.singletonList("/**"), Arrays.asList("/user/login","/user/putAll", "/user/isLogin"), StpUtil::checkLogin);
             // 角色认证 -- 拦截以 admin 开头的路由，必须具备[admin]角色或者[super-admin]角色才可以通过认证
-            SaRouterUtil.match("/admin/**", () -> StpUtil.checkRoleOr("admin", "super-admin"));
+            SaRouter.match("/admin/**", () -> StpUtil.checkRoleOr("admin", "super-admin"));
             // 权限认证 -- 不同模块, 校验不同权限
 //            SaRouterUtil.match("/fund/**", () -> StpUtil.checkPermission("admin"));
             // 匹配 restful 风格路由
-            SaRouterUtil.match("/fund/get/{id}", () -> StpUtil.checkPermission("user"));
+            SaRouter.match("/fund/get/{id}", () -> StpUtil.checkPermission("user"));
 
             // 检查请求方式
-            SaRouterUtil.match("/notice/**", () -> {
+            SaRouter.match("/notice/**", () -> {
                 if (request.getMethod().equals(HttpMethod.GET.toString())) {
                     StpUtil.checkPermission("notice");
                 }
