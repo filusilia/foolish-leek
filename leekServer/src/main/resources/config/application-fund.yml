@@ -1,6 +1,7 @@
-#超时时间
 fund:
+  #超时时间
   timeout: 300000
+  #定时
   cron: 0 */5 * * * ?
 #小熊同学
 doctorxiong:
