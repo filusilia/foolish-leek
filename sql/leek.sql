@@ -1,27 +1,29 @@
-create table if not exists ft_fund
+-- auto-generated definition
+create table ft_fund
 (
     id                       int(8) auto_increment comment '主键'
         primary key,
-    fund_code                varchar(6)   not null comment '基金代码',
-    fund_name                varchar(255) not null comment '基金名称',
-    short_name               varchar(100) not null comment '基金拼音简称',
-    fund_full_pinyin         varchar(255) not null comment '基金全称',
-    fund_type                varchar(100) null comment '基金类型',
-    net_worth                decimal(12)  null comment '当前基金单位净值',
-    expect_worth             decimal(12)  null comment '当前基金累计净值',
-    expect_growth            varchar(5)   null comment '当前基金单位净值估算日涨幅,单位为百分比',
-    day_growth               varchar(5)   null comment '单位净值日涨幅,单位为百分比',
-    last_week_growth         varchar(5)   null comment '单位净值周涨幅,单位为百分比',
-    last_month_growth        varchar(5)   null comment '单位净值月涨幅,单位为百分比',
-    last_three_months_growth varchar(5)   null comment '单位净值三月涨幅,单位为百分比',
-    last_six_months_growth   varchar(5)   null comment '单位净值六月涨幅,单位为百分比',
-    last_year_growth         varchar(5)   null comment '单位净值年涨幅,单位为百分比',
-    buy_min                  decimal(12)  null comment '最小申购金额',
-    buy_source_rate          decimal(5)   null comment '原始买入费率,单位为百分比',
-    fund_rate                decimal(5)   null comment '现费率',
-    manager                  varchar(50)  null comment '基金经理',
-    create_time              datetime     null comment '创建时间',
-    update_time              datetime     null comment '更新时间'
+    fund_code                varchar(6)     not null comment '基金代码',
+    fund_name                varchar(255)   not null comment '基金名称',
+    short_name               varchar(100)   not null comment '基金拼音简称',
+    fund_full_pinyin         varchar(255)   not null comment '基金全称',
+    fund_type                varchar(100)   null comment '基金类型',
+    net_worth                decimal(12, 6) null comment '当前基金单位净值',
+    expect_worth             decimal(12, 6) null comment '当前基金单位净值估算',
+    total_worth              decimal(12, 6) null comment '当前基金累计净值',
+    expect_growth            varchar(10)    null comment '当前基金单位净值估算日涨幅,单位为百分比',
+    day_growth               varchar(10)    null comment '单位净值日涨幅,单位为百分比',
+    last_week_growth         varchar(10)    null comment '单位净值周涨幅,单位为百分比',
+    last_month_growth        varchar(10)    null comment '单位净值月涨幅,单位为百分比',
+    last_three_months_growth varchar(10)    null comment '单位净值三月涨幅,单位为百分比',
+    last_six_months_growth   varchar(10)    null comment '单位净值六月涨幅,单位为百分比',
+    last_year_growth         varchar(10)    null comment '单位净值年涨幅,单位为百分比',
+    buy_min                  decimal(20, 6) null comment '最小申购金额',
+    buy_source_rate          decimal(12, 6) null comment '原始买入费率,单位为百分比',
+    fund_rate                decimal(12, 6) null comment '现费率',
+    manager                  varchar(50)    null comment '基金经理',
+    create_time              datetime       null comment '创建时间',
+    update_time              datetime       null comment '更新时间'
 )
     comment '基金表';
 
@@ -29,7 +31,8 @@ create index code
     on ft_fund (fund_code)
     comment '基金代码的索引';
 
-create table if not exists ft_fund_company
+-- auto-generated definition
+create table ft_fund_company
 (
     id           int(8) auto_increment comment '主键'
         primary key,
@@ -39,7 +42,8 @@ create table if not exists ft_fund_company
     update_time  datetime     null comment '更新时间'
 );
 
-create table if not exists ft_user
+-- auto-generated definition
+create table ft_user
 (
     id          int(8) auto_increment comment '主键'
         primary key,
@@ -59,7 +63,8 @@ create table if not exists ft_user
 )
     comment '用户表';
 
-create table if not exists ft_user_fund
+-- auto-generated definition
+create table ft_user_fund
 (
     id          int(8) auto_increment comment '主键'
         primary key,
