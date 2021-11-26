@@ -8,13 +8,15 @@ server:
       charset: UTF-8
       enabled: true
       force: true
-
+    session:
+      cookie:
+        same-site: lax
 spring:
   profiles:
     active: dev,fund
   mvc:
-    throw-exception-if-no-handler-found: true
-    static-path-pattern: /statics/**
+    pathmatch:
+      matching-strategy: ant_path_matcher
   quartz:
     #相关属性配置
     properties:
@@ -28,9 +30,8 @@ spring:
             threadCount: 10
             threadPriority: 5
             threadsInheritContextClassLoaderOfInitializingThread: true
-springfox:
-  documentation:
-    enabled: on
+knife4j:
+  enable: true
 
 sa-token:
   # token名称 (同时也是cookie名称)

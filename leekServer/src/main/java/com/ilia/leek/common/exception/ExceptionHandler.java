@@ -2,8 +2,7 @@ package com.ilia.leek.common.exception;
 
 import com.ilia.leek.common.enums.ResultCode;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +21,7 @@ import java.io.PrintWriter;
 @Component
 public class ExceptionHandler implements HandlerExceptionResolver {
     @Override
-    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+    public ModelAndView resolveException(@Nullable HttpServletRequest request, HttpServletResponse response, @Nullable Object handler, Exception ex) {
         log.error("system error now ,error message:" + ex.getMessage());
         response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);

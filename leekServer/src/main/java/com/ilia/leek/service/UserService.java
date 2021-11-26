@@ -11,6 +11,7 @@ import com.ilia.leek.common.enums.LoginType;
 import com.ilia.leek.common.enums.ResultCode;
 import com.ilia.leek.common.result.ResultResponse;
 import com.ilia.leek.entity.User;
+import com.ilia.leek.entity.pojo.QueryUser;
 import com.ilia.leek.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -80,21 +81,44 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     /**
      * 更新自己
      *
-     * @param user 用户
+     * @param queryUser 用户
      * @return {@link ResultResponse<Object>}
      */
-    public ResultResponse<Object> updateMyself(User user) {
+    public ResultResponse<Object> updateMyself(QueryUser queryUser) {
         LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
         wrapper.eq(User::getId, StpUtil.getLoginIdAsLong());
-        if (ObjectUtil.isNotEmpty(user.getNickname())) {
-            wrapper.set(User::getNickname, user.getNickname());
+        if (ObjectUtil.isNotEmpty(queryUser.getNickname())) {
+            wrapper.set(User::getNickname, queryUser.getNickname());
         }
-        if (ObjectUtil.isNotEmpty(user.getSex())) {
-            wrapper.set(User::getSex, user.getSex());
+        if (ObjectUtil.isNotEmpty(queryUser.getSex())) {
+            wrapper.set(User::getSex, queryUser.getSex());
         }
 
-        if (ObjectUtil.isNotEmpty(user.getAvatar())) {
-            wrapper.set(User::getAvatar, user.getAvatar());
+        if (ObjectUtil.isNotEmpty(queryUser.getAvatar())) {
+            wrapper.set(User::getAvatar, queryUser.getAvatar());
+        }
+        boolean success = update(wrapper);
+        return success ? ResultResponse.success() : ResultResponse.failed();
+    }
+
+
+    /**
+     * 更新密码
+     *
+     * @param queryUser 密码
+     * @return {@link ResultResponse<Object>}
+     */
+    public ResultResponse<Object> updatePassword(QueryUser queryUser) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getId, StpUtil.getLoginIdAsLong());
+        User now = getOne(queryWrapper);
+        if (ObjectUtil.equals(now.getPassword(), queryUser.getOldPassword())) {
+            return ResultResponse.failed(ResultCode.USER_NOT_RIGHT);
+        }
+        LambdaUpdateWrapper<User> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(User::getId, StpUtil.getLoginIdAsLong());
+        if (ObjectUtil.isNotEmpty(queryUser)) {
+            wrapper.set(User::getPassword, queryUser.getPassword());
         }
         boolean success = update(wrapper);
         return success ? ResultResponse.success() : ResultResponse.failed();

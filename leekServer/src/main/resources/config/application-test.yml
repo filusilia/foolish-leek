@@ -1,4 +1,7 @@
 spring:
+  config:
+    activate:
+      on-profile: test
   devtools:
     restart:
       enabled: true

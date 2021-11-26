@@ -3,6 +3,7 @@ package com.ilia.leek.common.result;
 
 import com.ilia.leek.common.Constants;
 import com.ilia.leek.common.enums.ResultCode;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -20,9 +21,29 @@ import java.io.Serializable;
 public class ResultResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 2919692188981006837L;
+
+    /**
+     * 项目版本号
+     */
+    @ApiModelProperty("项目版本号")
     private final String APIVersion = Constants.VERSION;
+
+    /**
+     * 返回码
+     */
+    @ApiModelProperty("返回码")
     private String code;
+
+    /**
+     * 返回消息
+     */
+    @ApiModelProperty("返回消息")
     private String message;
+
+    /**
+     * 返回数据
+     */
+    @ApiModelProperty("返回数据")
     private T data;
 
     /**

@@ -37,16 +37,7 @@ public class InitBaseFactory implements CommandLineRunner {
             if (ObjectUtil.isEmpty(Constants.MODE)) {
                 throw new NullPointerException("MODE is unknown");
             }
-            log.info("运行环境:{}", Constants.MODE);
-            switch (Constants.MODE) {
-                case DEV:
-                case TEST:
-                case PROD:
-                    break;
-                default:
-                    log.info("system workspace unknown ,exit.");
-            }
-            log.info("base constant load complete.");
+            log.info("workspace :{}", Constants.MODE);
 
         } catch (Exception e) {
             log.error("create basis config error ,system exit.\nerror message:{}", e.getMessage());

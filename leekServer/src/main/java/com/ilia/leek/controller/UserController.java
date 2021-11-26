@@ -5,20 +5,21 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.io.file.FileReader;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.ilia.leek.common.enums.ResultCode;
 import com.ilia.leek.common.result.ResultResponse;
 import com.ilia.leek.entity.Fund;
 import com.ilia.leek.entity.FundCompany;
-import com.ilia.leek.entity.User;
+import com.ilia.leek.entity.pojo.QueryUser;
 import com.ilia.leek.service.FundCompanyService;
 import com.ilia.leek.service.FundService;
 import com.ilia.leek.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,11 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @since 1.0
  */
+@Slf4j
 @RestController
 @RequestMapping("/user")
-@Slf4j
+@Api(tags = "用户模块")
+@ApiSupport(author = "ilia")
 public class UserController {
 
 
@@ -49,33 +52,48 @@ public class UserController {
     /**
      * 全平台登录(支持code/用户名/手机号登录
      *
-     * @param param loginKey登录key
-     *              password 密码
+     * @param queryUser loginKey登录key
+     *                  password 密码
      * @return JSONObject
      */
-    @RequestMapping("login")
-    public ResultResponse<Object> doLogin(@RequestBody JSONObject param) {
-        String loginKey = param.getStr("loginKey");
-        String password = param.getStr("password");
-        if (ObjectUtil.hasEmpty(loginKey, password)) {
+    @PostMapping("login")
+    @ApiOperation(value = "全平台登录", notes = "支持code/用户名/手机号登录,可以自动判断")
+    @ApiOperationSupport(
+            includeParameters = {"queryUser.loginKey", "queryUser.password"})
+    public ResultResponse<Object> doLogin(@RequestBody QueryUser queryUser) {
+        if (ObjectUtil.hasEmpty(queryUser.getLoginKey(), queryUser.getPassword())) {
             return ResultResponse.failed(ResultCode.PARAMETER_NULL);
         }
-        return userService.doLogin(loginKey, password);
+        return userService.doLogin(queryUser.getLoginKey(), queryUser.getPassword());
     }
 
     /**
      * 更新自己
      * (目前允许更改性别,昵称,头像)
      *
-     * @param user 用户
+     * @param queryUser 用户
      * @return {@link ResultResponse<Object>}
      */
-    @RequestMapping("updateMyself")
-    public ResultResponse<Object> updateMyself(User user) {
-        if (ObjectUtil.isEmpty(user)) {
+    @PostMapping("updateMyself")
+    @ApiOperation(value = "更新自己", notes = "目前允许更改性别,昵称,头像")
+    @ApiOperationSupport(
+            ignoreParameters = {"loginKey", "oldPassword", "password"})
+    public ResultResponse<Object> updateMyself(@RequestBody QueryUser queryUser) {
+        if (ObjectUtil.isEmpty(queryUser)) {
             return ResultResponse.failed(ResultCode.PARAMETER_NULL);
         }
-        return userService.updateMyself(user);
+        return userService.updateMyself(queryUser);
+    }
+
+    @PostMapping("updatePassword")
+    @ApiOperation(value = "更新密码")
+    @ApiOperationSupport(
+            includeParameters = {"queryUser.oldPassword", "queryUser.password"})
+    public ResultResponse<Object> updatePassword(@RequestBody QueryUser queryUser) {
+        if (ObjectUtil.hasEmpty(queryUser, queryUser.getOldPassword(), queryUser.getPassword())) {
+            return ResultResponse.failed(ResultCode.PARAMETER_NULL);
+        }
+        return userService.updateMyself(queryUser);
     }
 
     /**
@@ -83,7 +101,8 @@ public class UserController {
      *
      * @return {@link ResultResponse<Object>}
      */
-    @RequestMapping("updateLogin")
+    @GetMapping("updateLogin")
+    @ApiOperation(value = "刷新token")
     public ResultResponse<Object> updateLogin() {
         try {
             StpUtil.checkActivityTimeout();
@@ -103,18 +122,20 @@ public class UserController {
      *
      * @return {@link ResultResponse<Boolean>}
      */
-    @RequestMapping("isLogin")
+    @GetMapping("isLogin")
+    @ApiOperation(value = "是否登录")
     public ResultResponse<Boolean> isLogin() {
         return ResultResponse.success(StpUtil.isLogin());
     }
 
 
     /**
-     * 注销
+     * 注销登录
      *
      * @return {@link ResultResponse<Boolean>}
      */
-    @RequestMapping("logout")
+    @GetMapping("logout")
+    @ApiOperation(value = "注销登录")
     public ResultResponse<Boolean> logout() {
         StpUtil.logout();
         return ResultResponse.success();
