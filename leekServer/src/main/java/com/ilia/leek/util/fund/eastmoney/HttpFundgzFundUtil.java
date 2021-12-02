@@ -1,4 +1,4 @@
-package com.ilia.leek.util.fund.fundgz;
+package com.ilia.leek.util.fund.eastmoney;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.HttpUtil;

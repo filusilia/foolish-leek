@@ -11,9 +11,12 @@ import java.time.LocalDateTime;
 import java.util.Properties;
 
 /**
- * mybatis_plus not support
+ * <p>
+ *     mybatis_plus not support <br>
+ * </p>
  * mybatis拦截器,用于自动处理insert与update方法
  * 为insert update添加createTime与updateTime
+ *
  *
  * @author Alice on 2021/4/16
  * @version 1.0

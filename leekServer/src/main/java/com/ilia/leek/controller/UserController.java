@@ -17,7 +17,7 @@ import com.ilia.leek.service.FundCompanyService;
 import com.ilia.leek.service.FundService;
 import com.ilia.leek.service.UserService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,7 +57,7 @@ public class UserController {
      * @return JSONObject
      */
     @PostMapping("login")
-    @ApiOperation(value = "全平台登录", notes = "支持code/用户名/手机号登录,可以自动判断")
+    @Operation(summary = "全平台登录", description = "支持code/用户名/手机号登录,可以自动判断")
     @ApiOperationSupport(
             includeParameters = {"queryUser.loginKey", "queryUser.password"})
     public ResultResponse<Object> doLogin(@RequestBody QueryUser queryUser) {
@@ -75,7 +75,7 @@ public class UserController {
      * @return {@link ResultResponse<Object>}
      */
     @PostMapping("updateMyself")
-    @ApiOperation(value = "更新自己", notes = "目前允许更改性别,昵称,头像")
+    @Operation(summary = "更新自己", description = "目前允许更改性别,昵称,头像")
     @ApiOperationSupport(
             ignoreParameters = {"loginKey", "oldPassword", "password"})
     public ResultResponse<Object> updateMyself(@RequestBody QueryUser queryUser) {
@@ -86,7 +86,7 @@ public class UserController {
     }
 
     @PostMapping("updatePassword")
-    @ApiOperation(value = "更新密码")
+    @Operation(summary = "更新密码")
     @ApiOperationSupport(
             includeParameters = {"queryUser.oldPassword", "queryUser.password"})
     public ResultResponse<Object> updatePassword(@RequestBody QueryUser queryUser) {
@@ -102,7 +102,7 @@ public class UserController {
      * @return {@link ResultResponse<Object>}
      */
     @GetMapping("updateLogin")
-    @ApiOperation(value = "刷新token")
+    @Operation(summary = "刷新token")
     public ResultResponse<Object> updateLogin() {
         try {
             StpUtil.checkActivityTimeout();
@@ -123,7 +123,7 @@ public class UserController {
      * @return {@link ResultResponse<Boolean>}
      */
     @GetMapping("isLogin")
-    @ApiOperation(value = "是否登录")
+    @Operation(summary = "是否登录")
     public ResultResponse<Boolean> isLogin() {
         return ResultResponse.success(StpUtil.isLogin());
     }
@@ -135,7 +135,7 @@ public class UserController {
      * @return {@link ResultResponse<Boolean>}
      */
     @GetMapping("logout")
-    @ApiOperation(value = "注销登录")
+    @Operation(summary = "注销登录")
     public ResultResponse<Boolean> logout() {
         StpUtil.logout();
         return ResultResponse.success();
@@ -144,9 +144,13 @@ public class UserController {
     /**
      * 写入所有基金数据到基金表
      * 一次写入 受益终身
-     * 目前数量为12436
+     * 请求列表:
+     * <p>
+     * http://fund.eastmoney.com/js/fundcode_search.js
+     * </p>
      */
     @Deprecated
+    @GetMapping("fundFlush")
     public ResultResponse<Object> pullAll() {
         FileReader fileReader = new FileReader("fund_list.json");
         String result = fileReader.readString();
@@ -165,9 +169,7 @@ public class UserController {
 //        fundService.saveBatch(list);
         List<Fund> funds = fundService.list();
         List<Fund> n = list.stream().filter(item -> !funds.contains(item)).collect(Collectors.toList());
-        for (Fund fund : n) {
-            fundService.save(fund);
-        }
+        fundService.saveBatch(list);
         return ResultResponse.success();
     }
 

@@ -42,6 +42,8 @@ public class SaWebConfigureAdapter implements WebMvcConfigurer {
                 })).addPathPatterns("/**")
                 .excludePathPatterns("/user/login", "/user/isLogin",
                         "/error",
+                        //基础数据处理
+                        "/user/fundFlush",
                         //Knife4j相关链接,直接放开
                         "/favicon.ico",
                         "/v3/**",

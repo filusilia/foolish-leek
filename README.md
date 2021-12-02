@@ -25,4 +25,11 @@
 ## tips
 
 1. -Dfile.encoding=UTF-8
-2. springboot2.4.0起使用跨域设置时使用config.addAllowedOriginPattern("*");
+2. springboot2.4.0起使用跨域设置时使用config.addAllowedOriginPattern("*").
+3. springboot2.6使用springfox时会报错"Failed to start bean
+   'documentationPluginsBootstrapper'; nested exception is
+   java.lang.NullPointerException",原因是启用了全新的URL匹配'PathPatternParser',会与swagger产生兼容性问题,目前的解决方案是使用旧有的'AntPathMatcher',
+   配置如下:'spring.mvc.pathmatch.matching-strategy=ant_path_matcher'.
+   可以参考[这里](https://github.com/springfox/springfox/issues/3462).对于新建bean的解决方案,目前会与knife4j产生兼容问题,会不生成文档.
+
+## 感谢 [韭菜盒子](https://github.com/LeekHub/leek-fund)

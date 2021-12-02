@@ -102,7 +102,7 @@ public class FundController {
      */
     @GetMapping("searchFund")
     @ApiOperation(value = "搜索基金")
-    public ResultResponse<Object> searchFund(@RequestBody QueryFund queryFund) {
+    public ResultResponse<Object> searchFund(QueryFund queryFund) {
         if (ObjectUtil.hasEmpty(queryFund)) {
             return ResultResponse.failed(ResultCode.PARAMETER_NULL);
         }
@@ -117,7 +117,7 @@ public class FundController {
      */
     @GetMapping("listFund")
     @ApiOperation(value = "分页查询基金")
-    public ResultResponse<Object> listFund(@RequestBody QueryFund queryFund) {
+    public ResultResponse<Object> listFund(QueryFund queryFund) {
         if (ObjectUtil.hasEmpty(queryFund)) {
             return ResultResponse.failed(ResultCode.PARAMETER_NULL);
         }
@@ -135,7 +135,7 @@ public class FundController {
     @ApiOperationSupport(
             includeParameters = {
                     "queryFund.userId", "queryFund.fundCode"})
-    public ResultResponse<Object> realTimeFundByCode(@RequestBody QueryFund queryFund) {
+    public ResultResponse<Object> realTimeFundByCode(QueryFund queryFund) {
         if (ObjectUtil.hasEmpty(queryFund, queryFund.getFundCode())) {
             return ResultResponse.failed(ResultCode.PARAMETER_NULL);
         }

@@ -13,7 +13,7 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoder 默认配置为PatternLayoutEncoder -->
-        <encoder>
+        <encoder class="com.yomahub.tlog.core.enhance.logback.AspectLogbackEncoder">
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{80}-%line - %msg%n</pattern>
             <charset >utf-8</charset>
         </encoder>
@@ -29,7 +29,7 @@
             <maxHistory>30</maxHistory>
             <totalSizeCap>10GB</totalSizeCap>
         </rollingPolicy>
-        <encoder>
+        <encoder class="com.yomahub.tlog.core.enhance.logback.AspectLogbackEncoder">
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{0}-%line - %msg%n</pattern>
             <charset class="java.nio.charset.Charset">UTF-8</charset>
         </encoder>
@@ -46,7 +46,7 @@
             <maxHistory>30</maxHistory>
             <totalSizeCap>10GB</totalSizeCap>
         </rollingPolicy>
-        <encoder>
+        <encoder class="com.yomahub.tlog.core.enhance.logback.AspectLogbackEncoder">
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{0}-%line - %msg%n</pattern>
             <charset class="java.nio.charset.Charset">UTF-8</charset>
         </encoder>
@@ -62,7 +62,7 @@
             <maxHistory>30</maxHistory>
             <totalSizeCap>10GB</totalSizeCap>
         </rollingPolicy>
-        <encoder>
+        <encoder class="com.yomahub.tlog.core.enhance.logback.AspectLogbackEncoder">
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{0}-%line - %msg%n</pattern>
             <charset class="java.nio.charset.Charset">UTF-8</charset>
         </encoder>

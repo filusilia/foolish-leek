@@ -45,6 +45,17 @@ public class FundConstant {
      */
     public static String FUNDGZ_REAL_TIME = "";
 
+    /**
+     * 东方财富网
+     * 基金涨跌
+     */
+    public static String EASTMONEY_ZD = "";
+
+    /**
+     * 基金排行榜
+     */
+    public static String RANK_FUND_URL = "";
+
     @Value("${fund.timeout}")
     public void setTimeOut(long timeOut) {
         TIME_OUT = timeOut;
@@ -65,8 +76,18 @@ public class FundConstant {
         DOCTORXIONG_FUND = doctorxiongFund;
     }
 
-    @Value("${fundgz.real_time}")
+    @Value("${eastmoney.fundgz.real_time}")
     private void setFundgzRealTime(String fundgzRealTime) {
         FUNDGZ_REAL_TIME = fundgzRealTime;
+    }
+
+    @Value("${eastmoney.zd}")
+    public void setEastmoneyZd(String eastmoneyZd) {
+        EASTMONEY_ZD = eastmoneyZd;
+    }
+
+    @Value("${normal.rank}")
+    public void setRankFundUrl(String rankFundUrl) {
+        RANK_FUND_URL = rankFundUrl;
     }
 }

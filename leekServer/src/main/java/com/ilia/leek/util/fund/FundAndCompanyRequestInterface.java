@@ -26,4 +26,9 @@ public interface FundAndCompanyRequestInterface {
      */
     List<Fund> getDetailByCodes(List<String> codes);
 
+    /**
+     * 基金排行榜
+     * @return
+     */
+    List<Fund> getRankFund();
 }

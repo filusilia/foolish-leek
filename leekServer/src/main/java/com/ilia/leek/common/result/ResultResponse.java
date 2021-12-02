@@ -26,7 +26,7 @@ public class ResultResponse<T> implements Serializable {
      * 项目版本号
      */
     @ApiModelProperty("项目版本号")
-    private final String APIVersion = Constants.VERSION;
+    private final String apiVersion = Constants.VERSION;
 
     /**
      * 返回码

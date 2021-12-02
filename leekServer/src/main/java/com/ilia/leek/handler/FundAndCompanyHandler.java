@@ -8,7 +8,7 @@ import com.ilia.leek.common.exception.BaseBusinessException;
 import com.ilia.leek.entity.Fund;
 import com.ilia.leek.util.fund.FundAndCompanyRequestInterface;
 import com.ilia.leek.util.fund.FundConstant;
-import com.ilia.leek.util.fund.fundgz.HttpFundgzFundUtil;
+import com.ilia.leek.util.fund.eastmoney.HttpFundgzFundUtil;
 import com.ilia.leek.util.fund.xiong.DoctorXiongResponse;
 import com.ilia.leek.util.fund.xiong.DoctorXiongUtil;
 import com.ilia.leek.util.fund.xiong.HttpDoctorXiongFundUtil;
@@ -33,7 +33,6 @@ public class FundAndCompanyHandler implements FundAndCompanyRequestInterface {
         if (ObjectUtil.isEmpty(code) || code.length() != FundConstant.FUND_CODE_LENGTH) {
             throw new BaseBusinessException(ResultCode.PARAMETER_ERROR);
         }
-        //1
         try {
             DoctorXiongResponse res = HttpDoctorXiongFundUtil.getDetail(code);
             if (HttpDoctorXiongFundUtil.DOCTORXIONG_SUCCESS.equals(res.getCode())) {
@@ -82,6 +81,11 @@ public class FundAndCompanyHandler implements FundAndCompanyRequestInterface {
             //BaseBusinessException
 
         }
+        return null;
+    }
+
+    @Override
+    public List<Fund> getRankFund() {
         return null;
     }
 }

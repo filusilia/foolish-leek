@@ -68,7 +68,7 @@ public class Knife4jConfiguration {
         return Collections.singletonList(
                 SecurityContext.builder()
                         .securityReferences(Collections.singletonList(
-                                new SecurityReference("BASE_TOKEN",
+                                new SecurityReference("leek-token",
                                         new AuthorizationScope[]{new AuthorizationScope("global", "")})))
                         .build()
         );
@@ -78,7 +78,7 @@ public class Knife4jConfiguration {
      * 设置授权信息
      */
     private List<SecurityScheme> securitySchemes() {
-        ApiKey apiKey = new ApiKey("BASE_TOKEN", "token", In.HEADER.toValue());
+        ApiKey apiKey = new ApiKey("leek-token", "sa-token参数", In.HEADER.toValue());
         return Collections.singletonList(apiKey);
     }
 }
