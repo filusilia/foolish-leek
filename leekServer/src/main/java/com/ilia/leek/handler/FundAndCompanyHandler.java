@@ -28,6 +28,21 @@ import java.util.Objects;
 @Service
 @Slf4j
 public class FundAndCompanyHandler implements FundAndCompanyRequestInterface {
+
+    @Override
+    public List<Fund> getAllFund() {
+        DoctorXiongResponse res = HttpDoctorXiongFundUtil.getAllFund();
+        List<Fund> list = new ArrayList<>();
+        if (HttpDoctorXiongFundUtil.DOCTORXIONG_SUCCESS.equals(res.getCode())) {
+            JSONArray jsonArray = JSONUtil.parseArray(res.getData());
+            jsonArray.stream().iterator().forEachRemaining(ele -> {
+                Fund fund = DoctorXiongUtil.resolveListFund((JSONArray) ele);
+                list.add(fund);
+            });
+        }
+        return list.size() > 0 ? list : null;
+    }
+
     @Override
     public Fund getRealTimeFundByCode(String code) {
         if (ObjectUtil.isEmpty(code) || code.length() != FundConstant.FUND_CODE_LENGTH) {

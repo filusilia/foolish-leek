@@ -31,9 +31,19 @@
       "description": "基金查询超时时间."
     },
     {
+      "name": "fund.basic-cron",
+      "type": "java.lang.String",
+      "description": "基础数据定时任务表达式."
+    },
+    {
       "name": "fund.cron",
       "type": "java.lang.String",
-      "description": "基金查询定时任务表达式"
+      "description": "基金查询定时任务表达式."
+    },
+    {
+      "name": "doctorxiong.all",
+      "type": "java.lang.String",
+      "description": "小熊同学-所有获取基金."
     },
     {
       "name": "doctorxiong.detail",
@@ -56,9 +66,19 @@
       "description": "小熊同学-获取基金排行."
     },
     {
-      "name": "fundgz.real_time",
+      "name": "eastmoney.fundgz.real_time",
       "type": "java.lang.String",
       "description": "天天基金网-基金实时信息."
+    },
+    {
+      "name": "eastmoney.zd",
+      "type": "java.lang.String",
+      "description": "东方财富-涨跌."
+    },
+    {
+      "name": "normal.rank",
+      "type": "java.lang.String",
+      "description": "其他-基金排行榜."
     }
   ]
 }

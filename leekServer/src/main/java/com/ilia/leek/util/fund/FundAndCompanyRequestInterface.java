@@ -12,23 +12,32 @@ import java.util.List;
  */
 public interface FundAndCompanyRequestInterface {
     /**
+     * 获取全部基金
+     *
+     * @return List<Fund>
+     */
+    List<Fund> getAllFund();
+
+    /**
      * 根据基金代码实时获取基金详情
      *
-     * @param code
-     * @return
+     * @param code 基金代码
+     * @return Fund
      */
     Fund getRealTimeFundByCode(String code);
 
     /**
      * 根据基金code列表查询基金的基础信息
-     * @param codes
-     * @return
+     *
+     * @param codes 基金代码列表
+     * @return List<Fund>
      */
     List<Fund> getDetailByCodes(List<String> codes);
 
     /**
      * 基金排行榜
-     * @return
+     *
+     * @return List<Fund>
      */
     List<Fund> getRankFund();
 }

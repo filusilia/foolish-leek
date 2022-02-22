@@ -23,9 +23,20 @@ public class FundConstant {
     public static long TIME_OUT = 1000 * 60;
 
     /**
-     * 基金详情更新时距
+     * 基金详情更新定时任务表达式
+     */
+    public static String BASIC_CRON = "0 0 0 ? * *";
+
+    /**
+     * 基金详情更新定时任务表达式
      */
     public static String CRON = "0 */10 * * * ?";
+
+    /**
+     * 小熊同学
+     * 获取所有基金
+     */
+    public static String DOCTORXIONG_ALL_FUND = "";
 
     /**
      * 小熊同学
@@ -35,7 +46,7 @@ public class FundConstant {
 
     /**
      * 小熊同学
-     * 获取基金详情
+     * 获取基金基础信息
      */
     public static String DOCTORXIONG_FUND = "";
 
@@ -61,9 +72,19 @@ public class FundConstant {
         TIME_OUT = timeOut;
     }
 
+    @Value("${fund.basic-cron}")
+    public void setBasicCron(String basicCron) {
+        BASIC_CRON = basicCron;
+    }
+
     @Value("${fund.cron}")
     public void setCRON(String CRON) {
         FundConstant.CRON = CRON;
+    }
+
+    @Value("${doctorxiong.all}")
+    public void setDoctorxiongAllFund(String doctorxiongAllFund) {
+        DOCTORXIONG_ALL_FUND = doctorxiongAllFund;
     }
 
     @Value("${doctorxiong.detail}")

@@ -43,10 +43,14 @@ public class QuartzConfig {
         try {
             Scheduler scheduler = scheduler();
             scheduler.start();
-            JobDetail jobDetail = fundJobConfig.fundRealTimeJobDetail();
+            JobDetail fundRealTimeJobDetail = fundJobConfig.fundRealTimeJobDetail();
+            JobDetail fundBasicJobDetail = fundJobConfig.fundBasicJobDetail();
+            JobDetail fundBasicCompanyJobDetail = fundJobConfig.fundBasicCompanyJobDetail();
             log.info("job build success.");
             log.info("ScheduleJob init first .");
-            scheduler.scheduleJob(jobDetail, fundJobConfig.fundJobTrigger());
+            scheduler.scheduleJob(fundRealTimeJobDetail, fundJobConfig.fundJobTrigger());
+            scheduler.scheduleJob(fundBasicJobDetail, fundJobConfig.fundBasicJobTrigger());
+            scheduler.scheduleJob(fundBasicCompanyJobDetail, fundJobConfig.fundBasicCompanyJobTrigger());
         } catch (SchedulerException e) {
             log.error("init ScheduleJob error ,error message :{}", e.getMessage());
         }

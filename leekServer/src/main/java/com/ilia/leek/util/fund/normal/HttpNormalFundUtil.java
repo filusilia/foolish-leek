@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class HttpNormalFundUtil {
     public static List<Fund> getRankFunds() {
-        HttpResponse response = HttpUtil.createGet(FundConstant.RANK_FUND_URL).addHeaders(RequestTool.header).execute();
+        HttpResponse response = HttpUtil.createGet(FundConstant.RANK_FUND_URL).addHeaders(RequestTool.HEADER).execute();
         if (response.getStatus() == 200) {
             return createFunds(response.body());
         } else {
