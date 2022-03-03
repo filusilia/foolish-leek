@@ -16,3 +16,6 @@ knife4j:
   enable: true
   # 开启生产环境屏蔽
   production: true
+
+logging:
+  level: info
