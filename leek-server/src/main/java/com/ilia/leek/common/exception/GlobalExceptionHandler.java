@@ -84,7 +84,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = Exception.class)
-    public ResultResponse<Object> defaultErrorHandler(HttpServletRequest request, Exception exception) throws Exception {
+    public ResultResponse<Object> defaultErrorHandler(HttpServletRequest request, Exception exception) {
         log.error(exception.getMessage());
         return failed(ResultCode.SERVER_ERROR);
     }
