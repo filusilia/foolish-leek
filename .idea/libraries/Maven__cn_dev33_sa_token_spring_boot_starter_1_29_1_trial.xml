@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: cn.dev33:sa-token-spring-boot-starter:1.29.1.trial">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../m2/repository/cn/dev33/sa-token-spring-boot-starter/1.29.1.trial/sa-token-spring-boot-starter-1.29.1.trial.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../m2/repository/cn/dev33/sa-token-spring-boot-starter/1.29.1.trial/sa-token-spring-boot-starter-1.29.1.trial-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../m2/repository/cn/dev33/sa-token-spring-boot-starter/1.29.1.trial/sa-token-spring-boot-starter-1.29.1.trial-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
